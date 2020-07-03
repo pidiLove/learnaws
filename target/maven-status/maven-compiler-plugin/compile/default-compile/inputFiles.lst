@@ -1,0 +1,5 @@
+/Users/pei.wang/IdeaProjects/aws-doc-sdk-examples/java/example_code/cloudwatch/src/main/java/com/aws/lambda/LogLambda.java
+/Users/pei.wang/IdeaProjects/aws-doc-sdk-examples/java/example_code/cloudwatch/src/main/java/com/aws/lambda/ReadSQSLambda.java
+/Users/pei.wang/IdeaProjects/aws-doc-sdk-examples/java/example_code/cloudwatch/src/main/java/com/aws/lambda/PublishMessageToSNSTopic.java
+/Users/pei.wang/IdeaProjects/aws-doc-sdk-examples/java/example_code/cloudwatch/src/main/java/com/aws/dynamodb/DynamodbCRUD.java
+/Users/pei.wang/IdeaProjects/aws-doc-sdk-examples/java/example_code/cloudwatch/src/main/java/com/aws/lambda/TestLambda.java

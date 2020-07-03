@@ -1,0 +1,56 @@
+lambda调用dynamodb
+1、创建规则
+aws events put-rule \
+--name pei-scheduled-rule \
+--schedule-expression 'cron(0/1 * ? * SUN-SAT *)'
+
+"RuleArn": "arn:aws:events:ap-southeast-1:494526681395:rule/pei-scheduled-rule"
+
+2、添加执行lambda权限
+aws lambda add-permission \
+ --function-name pei-lambda-cloudwatch-function-15XF3WO875MKT \
+ --statement-id pei-scheduled-event \
+ --action 'lambda:InvokeFunction' \
+ --principal events.amazonaws.com \
+ --source-arn arn:aws:events:ap-southeast-1:494526681395:rule/pei-scheduled-rule
+
+3、将rule与lambda关联
+aws events put-targets --rule pei-scheduled-rule --targets "Id"="1","Arn"="arn:aws:lambda:ap-southeast-1:494526681395:function:pei-lambda-cloudwatch-function-15XF3WO875MKT"
+
+
+lambda打印log
+
+1、创建规则
+aws events put-rule \
+--name pei-log-scheduled-rule \
+--schedule-expression 'cron(0/1 * ? * SUN-SAT *)'
+
+//"RuleArn": "arn:aws:events:ap-southeast-1:494526681395:rule/pei-log-scheduled-rule"
+
+
+aws events put-rule \
+--name pei-sns-pulish-topic-python-rule \
+--schedule-expression 'cron(0/1 * ? * SUN-SAT *)'
+
+//"RuleArn": "arn:aws:lambda:ap-southeast-1:494526681395:function:pei-sns-pulish-topic-python"
+
+2、添加执行lambda权限
+aws lambda add-permission \
+ --function-name pei-sns-pulish-topic-python \
+ --statement-id pei-sns-scheduled-event \
+ --action 'lambda:InvokeFunction' \
+ --principal events.amazonaws.com \
+ --source-arn arn:aws:events:ap-southeast-1:494526681395:rule/pei-sns-pulish-topic-python-rule
+
+3、将rule与lambda关联
+aws events put-targets --rule pei-sns-pulish-topic-python-rule --targets "Id"="1","Arn"="arn:aws:lambda:ap-southeast-1:494526681395:function:pei-sns-pulish-topic-python"
+
+
+1、创建metric
+
+aws logs put-metric-filter \
+  --log-group-name pei-log-group \
+  --filter-name LogLambdaCallCount \
+  --filter-pattern 'lambda' \
+  --metric-transformations \
+      metricName=LogLambdaCallCount,metricNamespace=PeiLogNamespace,metricValue=1,defaultValue=0

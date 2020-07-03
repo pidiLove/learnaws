@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that calls the Lambda API.
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/cloudwatch-1.0.jar
+      Handler: aws.example.lambda::handleRequest
+      Runtime: java8
+      Description: Java function
+      MemorySize: 512
+      Timeout: 10
+      Role: arn:aws:iam::494526681395:role/pei-lambda-role
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambdaReadOnlyAccess
+        - AWSXrayWriteOnlyAccess
+        - AWSLambdaVPCAccessExecutionRole
+      Tracing: Active

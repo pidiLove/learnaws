@@ -1,0 +1,5 @@
+com/aws/dynamodb/DynamodbCRUD.class
+com/aws/lambda/LogLambda.class
+com/aws/lambda/PublishMessageToSNSTopic.class
+com/aws/lambda/ReadSQSLambda.class
+com/aws/lambda/TestLambda.class

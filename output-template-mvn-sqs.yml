@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Lambda application that calls the Lambda API.
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://s3-pei-lambda-8d5bdbc0ea7fb559/2b761102599c77950b51ead2a7d7f048
+      Handler: com.aws.lambda.ReadSQSLambda::handleRequest
+      Runtime: java8
+      Description: Java function
+      MemorySize: 512
+      Timeout: 10
+      Role: arn:aws:iam::494526681395:role/pei-lambda-role
+      Tracing: Active

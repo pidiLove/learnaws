@@ -1,0 +1,28 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  DBWriteCapacityAlarmTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: pei-sns-dynamodb-DBWriteCapacity-alarm
+      Subscription:
+        - Endpoint: pei.wang@thoughtworks.com
+          Protocol: EMAIL
+
+  DBWriteWriteCapacityThrottleEventsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: aws-dynamodb-Project-pei-High-Consumed-write-capacity
+      AlarmActions:
+        - !Ref DBWriteCapacityAlarmTopic
+      MetricName: WriteCapacity
+      Namespace: AWS/DynamoDB
+      Statistic: Sum
+      Period:
+      EvaluationPeriods: 1
+      Threshold: 20
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: "notBreaching"
+      Dimensions:
+        - Name: TableName
+          Value: Project_pei
